@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD013 -->
+
 # cc-assets
 
 Public assets (pixel mascot icons, sounds) for Claude Code hooks. Hosted publicly
