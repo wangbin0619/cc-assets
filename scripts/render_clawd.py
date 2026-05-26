@@ -76,7 +76,7 @@ def render(mascot, bg_color, out_path, canvas=512, scale=24):
 OUT = "clawd"
 os.makedirs(OUT, exist_ok=True)
 
-# 6 standard-pose Clawds in different background colors.
+# Original Material-Design palette (kept for backward compatibility).
 PALETTE = {
     "orange": (217, 119, 87),   # Anthropic peach (default Clawd)
     "green":  (67,  160, 71),   # Material Green 600 — completion / success
@@ -85,7 +85,17 @@ PALETTE = {
     "amber":  (251, 140, 0),    # Material Amber 700 — attention / waiting
     "pink":   (216, 27,  96),   # Material Pink 600 — high-contrast alt
 }
-for name, rgb in PALETTE.items():
+# Bright iOS-system-color palette — high-saturation pure tones intended for
+# notification thumbnails where they need to read clearly at small size.
+BRIGHT_PALETTE = {
+    "bright-green":  (52,  199, 89),   # iOS systemGreen   — success / done
+    "bright-yellow": (255, 204, 0),    # iOS systemYellow  — attention / waiting
+    "bright-cyan":   (90,  200, 250),  # iOS systemTeal/Sky — calm info
+    "bright-pink":   (255, 45,  85),   # iOS systemPink    — urgent
+    "bright-orange": (255, 149, 0),    # iOS systemOrange  — warm attention
+    "bright-mint":   (0,   199, 190),  # iOS systemMint    — fresh
+}
+for name, rgb in {**PALETTE, **BRIGHT_PALETTE}.items():
     p = f"{OUT}/{name}.png"
     render(CLAWD, rgb, p)
     print(f"  wrote {p}  ({os.path.getsize(p)} B)")
